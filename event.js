@@ -4,16 +4,21 @@ const axios = require('axios');
 const CHANNEL = process.env.CHANNEL || 'GQ565R7T8';
 
 module.exports = async (req, res) => {
-    const { event: {subtype, name, names} } = await json(req);
+    const { event, challenge} = await json(req);
 
-    if (subtype === 'add' && name) {
+    if (challenge) {
+        res.writeHead(200);
+        return res.end(challenge);
+    }
+
+    if (event.subtype === 'add' && event.name) {
         await axios({
             method: 'post',
             url: 'https://slack.com/api/chat.postMessage',
             headers: {'Authorization': `Bearer ${process.env.SLACK_TOKEN}`},
             data: {
                 channel: CHANNEL,
-                text: `:alert:` + `:${name}: `.repeat(5) + `:alert:`
+                text: `:alert:` + `:${event.name}: `.repeat(5) + `:alert:`
             }
         });
 
@@ -21,14 +26,14 @@ module.exports = async (req, res) => {
         return res.end();
     }
 
-    if (subtype === 'remove' && names) {
+    if (event.subtype === 'remove' && event.names) {
         await axios({
             method: 'post',
             url: 'https://slack.com/api/chat.postMessage',
             headers: {'Authorization': `Bearer ${process.env.SLACK_TOKEN}`},
             data: {
                 channel: CHANNEL,
-                text: names.map(name => `:alert-blue:` + `:${name}: `.repeat(5) + `:alert-blue:`).join("\n")
+                text: event.names.map(name => `:alert-blue:` + `:${name}: `.repeat(5) + `:alert-blue:`).join("\n")
             }
         });
 
