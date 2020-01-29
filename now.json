@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "name": "emoji-watch",
+    "builds": [
+        { "src": "*.js", "use": "@now/node" }
+    ],
+    "github": {
+        "silent": true
+    },
+    "env": {
+        "SLACK_TOKEN": "@emoji-watcher-slack-token",
+        "CHANNEL": "@emoji-watcher-channel"
+    }
+}
