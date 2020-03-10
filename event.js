@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
             headers: {'Authorization': `Bearer ${process.env.SLACK_TOKEN}`},
             data: {
                 channel: CHANNEL,
-                text: `:alert:` + `:${event.name}: `.repeat(5) + `:alert:`
+                text: `:surprisedpikachu: ` + `:${event.name}: `.repeat(5) + `:tada:`
             }
         });
 
@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
             headers: {'Authorization': `Bearer ${process.env.SLACK_TOKEN}`},
             data: {
                 channel: CHANNEL,
-                text: event.names.map(name => `:alert-blue:` + `:${name}: `.repeat(5) + `:alert-blue:`).join("\n")
+                text: event.names.map(name => `:delete:` + ` ${name} ` + `:wtf:`).join("\n")
             }
         });
 
