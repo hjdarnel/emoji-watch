@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
             headers: {'Authorization': `Bearer ${process.env.SLACK_TOKEN}`},
             data: {
                 channel: CHANNEL,
-                text: event.names.map(name => `:delete:` + ` ${name} ` + `:wtf:`).join("\n")
+                text: event.names.map(name => `:x:` + ` ${name} ` + `:surprisedpikachu:`).join("\n")
             }
         });
 
